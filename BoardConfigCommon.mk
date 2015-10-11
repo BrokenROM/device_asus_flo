@@ -33,10 +33,10 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 
 # Try to build the kernel
 TARGET_KERNEL_SOURCE := kernel/asus/flo
-TARGET_KERNEL_CONFIG := custom_flo_defconfig
-KERNEL_DEFCONFIG := custom_flo_defconfig
-VARIANT_DEFCONFIG := custom_flo_defconfig
-SELINUX_DEFCONFIG := custom_flo_defconfig
+TARGET_KERNEL_CONFIG := slim_flo_defconfig
+KERNEL_DEFCONFIG := slim_flo_defconfig
+VARIANT_DEFCONFIG := slim_flo_defconfig
+SELINUX_DEFCONFIG := slim_flo_defconfig
 
 # Build with compressed odex
 WITH_DEXPREOPT_COMP=true

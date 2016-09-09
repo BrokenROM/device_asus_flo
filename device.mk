@@ -41,10 +41,10 @@ PRODUCT_BOOT_JARS += \
     tcmiface
 
 # Needed for VOIP+SIP
-PRODUCT_PACKAGES += \
-    InCallUI \
-    Dialer \
-    rild
+#PRODUCT_PACKAGES += \
+#   InCallUI \
+#   Dialer \
+#   rild
 
 # Speed up art
 #PRODUCT_PROPERTY_OVERRIDES += \

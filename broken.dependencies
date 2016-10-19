@@ -19,6 +19,12 @@
  },
  {
    "remote":      "github",
+   "repository":  "CrackerTeg/hardware_qcom_msm8960",
+   "target_path": "hardware/qcom/msm8960",
+   "branch":      "n7.0"
+ },
+ {
+   "remote":      "github",
    "repository":  "Cyanogenmod/android_external_stlport",
    "target_path": "external/stlport",
    "branch":      "cm-14.0"

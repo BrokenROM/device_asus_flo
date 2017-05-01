@@ -1,0 +1,20 @@
+[
+ {
+   "remote":      "github",
+   "repository":  "TeamFahQ/proprietary_vendor_asus",
+   "target_path": "vendor/asus",
+   "branch":      "n7.1"
+ },
+ {
+   "remote":      "github",
+   "repository":  "TeamFahQ/kernel_asus_flo",
+   "target_path": "kernel/asus/flo",
+   "branch":      "n7.1"
+ },
+ {
+   "remote":      "github",
+   "repository":  "Cyanogenmod/android_external_stlport",
+   "target_path": "external/stlport",
+   "branch":      "cm-14.0"
+ }
+]

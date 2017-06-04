@@ -7,7 +7,7 @@
  },
  {
    "remote":      "github",
-   "repository":  "TeamFahQ/kernel_asus_flo",
+   "repository":  "LightningZap/kernel_asus_flo",
    "target_path": "kernel/asus/flo",
    "branch":      "n7.1"
  },

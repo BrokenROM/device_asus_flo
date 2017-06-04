@@ -29,7 +29,7 @@ BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=flo user_
 BOARD_KERNEL_CMDLINE += vmalloc=340M
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 TARGET_KERNEL_SOURCE := kernel/asus/flo
-TARGET_KERNEL_CONFIG := flo_defconfig-lz
+TARGET_KERNEL_CONFIG := flo-lz_defconfig
 KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/arm-cortex_a15-linux-gnueabihf-linaro_4.9/bin
 KERNEL_TOOLCHAIN_PREFIX := arm-cortex_a15-linux-gnueabihf-
 

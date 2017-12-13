@@ -27,6 +27,8 @@ PRODUCT_AAPT_PREBUILT_DPI := hdpi
 
 # Audio
 PRODUCT_PACKAGES += \
+    android.hardware.audio@2.0-impl \
+    android.hardware.audio.effect@2.0-impl \
     audio.primary.msm8960 \
     audio.a2dp.default \
     audio.usb.default \
@@ -44,6 +46,11 @@ PRODUCT_PACKAGES += \
     hci_qcomm_init \
     init.flo.bt.sh
 
+# Bluetooth HAL
+PRODUCT_PACKAGES += \
+    libbt-vendor \
+    android.hardware.bluetooth@1.0-impl
+
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1200
@@ -55,6 +62,8 @@ PRODUCT_PACKAGES += \
 
 # Camera
 PRODUCT_PACKAGES += \
+    android.hardware.camera.provider@2.4-impl \
+    camera.device@3.2-impl \
     Snap
 
 # Charger
@@ -62,12 +71,17 @@ PRODUCT_PACKAGES += \
     charger_res_images \
     charger_touch
 
-# Gello
+# DRM
 PRODUCT_PACKAGES += \
-    Gello
+    android.hardware.drm@1.0-impl \
 
 # Graphics
 PRODUCT_PACKAGES += \
+    android.hardware.graphics.allocator@2.0-impl \
+    android.hardware.graphics.allocator@2.0-service \
+    android.hardware.graphics.composer@2.1-impl \
+    android.hardware.graphics.mapper@2.0-impl \
+    android.hardware.memtrack@1.0-impl \
     libgenlock \
     hwcomposer.msm8960 \
     gralloc.msm8960 \
@@ -78,6 +92,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     gps.conf \
     gps.msm8960
+
+# GNSS HAL
+PRODUCT_PACKAGES += \
+    android.hardware.gnss@1.0-impl
 
 # IPC router config
 PRODUCT_COPY_FILES += \
@@ -94,6 +112,10 @@ PRODUCT_COPY_FILES += \
     device/asus/flo/keylayout/keypad_8064.kcm:system/usr/keychars/keypad_8064.kcm \
     device/asus/flo/keylayout/pmic8xxx_pwrkey.kcm:system/usr/keychars/pmic8xxx_pwrkey.kcm
 
+# Keymaster
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@3.0-impl
+
 # Keystore
 PRODUCT_PACKAGES += \
     keystore.msm8960
@@ -104,6 +126,7 @@ PRODUCT_COPY_FILES += \
 
 # Lights
 PRODUCT_PACKAGES += \
+    android.hardware.light@2.0-impl \
     lights.msm8960
 
 # Media
@@ -119,6 +142,8 @@ PRODUCT_CHARACTERISTICS := tablet,nosdcard
 
 # NFC
 PRODUCT_PACKAGES += \
+    android.hardware.nfc@1.0-impl-bcm \
+    android.hardware.nfc@1.0-service \
     nfc_nci.bcm2079x.default \
     libnfc-nci \
     libnfc_nci_jni \
@@ -126,8 +151,8 @@ PRODUCT_PACKAGES += \
     Tag
 
 PRODUCT_COPY_FILES += \
-    device/asus/flo/configs/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
-    device/asus/flo/configs/nfc/libnfc-brcm-20791b05.conf:system/etc/libnfc-brcm-20791b05.conf
+    device/asus/flo/configs/nfc/libnfc-brcm.conf:system/vendor/etc/libnfc-brcm.conf \
+    device/asus/flo/configs/nfc/libnfc-brcm-20791b05.conf:system/vendor/etc/libnfc-brcm-20791b05.conf
 
 # OMX
 PRODUCT_PACKAGES += \
@@ -135,6 +160,10 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libOmxCore \
     libstagefrighthw
+
+# Default OMX service to non-Treble
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.media.treble_omx=false
 
 # Permissions/features
 PRODUCT_COPY_FILES += \
@@ -158,6 +187,7 @@ PRODUCT_COPY_FILES += \
 
 # Power
 PRODUCT_PACKAGES += \
+    android.hardware.power@1.0-impl \
     power.flo
 
 # Ramdisk
@@ -170,9 +200,17 @@ PRODUCT_PACKAGES += \
     ueventd.rc \
     ueventd.flo.rc
 
-# stlport
+# RenderScript HAL
 PRODUCT_PACKAGES += \
-    libstlport
+    android.hardware.renderscript@1.0-impl
+
+# Sensors
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/sensors/_hals.conf:system/vendor/etc/sensors/_hals.conf
+
+PRODUCT_PACKAGES += \
+    android.hardware.sensors@1.0-impl \
+    sensors.msm8960
 
 # Thermal
 PRODUCT_COPY_FILES += \
@@ -183,10 +221,16 @@ PRODUCT_COPY_FILES += \
     device/asus/flo/configs/touch_dev.idc:system/usr/idc/touch_dev.idc \
     device/asus/flo/configs/elan-touchscreen.idc:system/usr/idc/elan-touchscreen.idc
 
+# USB HAL
+PRODUCT_PACKAGES += \
+    android.hardware.usb@1.0-service
+
 # Wifi
 PRODUCT_PACKAGES += \
+    android.hardware.wifi@1.0-service \
     conn_init \
     dhcpcd.conf \
+    wificond \
     hostapd \
     libwfcu \
     p2p_supplicant_overlay.conf \
@@ -205,7 +249,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libqcomvoiceprocessing \
     libqcomvoiceprocessingdescriptors
-
 
 # Dalvik/HWUI
 $(call inherit-product, frameworks/native/build/tablet-7in-xhdpi-2048-dalvik-heap.mk)

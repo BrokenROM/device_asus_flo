@@ -20,9 +20,13 @@ TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := krait
 
+# SDClang
+TARGET_USE_SDCLANG := true
+
 TARGET_NO_BOOTLOADER := true
 
 BOARD_KERNEL_BASE := 0x80200000
+BOARD_KERNEL_IMAGE_NAME = zImage
 BOARD_KERNEL_PAGESIZE := 2048
 # BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=msm8960 maxcpus=2
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=flo user_debug=31 msm_rtb.filter=0x3F ehci-hcd.park=3
@@ -37,6 +41,9 @@ BOARD_USES_ALSA_AUDIO:= true
 BOARD_USES_LEGACY_ALSA_AUDIO:= false
 BOARD_USES_FLUENCE_INCALL := true
 BOARD_USES_SEPERATED_AUDIO_INPUT := true
+
+# Binder API version
+TARGET_USES_64_BIT_BINDER := true
 
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
@@ -66,17 +73,6 @@ PRESENT_TIME_OFFSET_FROM_VSYNC_NS := 3200000
 TARGET_USES_ION := true
 TARGET_USES_OVERLAY := true
 TARGET_USES_SF_BYPASS := true
-TARGET_USES_C2D_COMPOSITON := true
-
-# Enable dex-preoptimization to speed up first boot sequence
-ifeq ($(HOST_OS),linux)
-  ifeq ($(TARGET_BUILD_VARIANT),user)
-    ifeq ($(WITH_DEXPREOPT),)
-      WITH_DEXPREOPT := true
-    endif
-  endif
-endif
-WITH_DEXPREOPT_BOOT_IMG_ONLY ?= true
 
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
@@ -119,6 +115,10 @@ HAVE_ADRENO_SOURCE:= false
 
 BOARD_SEPOLICY_DIRS += device/asus/flo/sepolicy
 
+# Media HAL
+BOARD_GLOBAL_CFLAGS += -DQCOM_BSP_LEGACY
+BOARD_GLOBAL_CPPFLAGS += -DQCOM_BSP_LEGACY
+
 # Enable Minikin text layout engine (will be the default soon)
 USE_MINIKIN := true
 
@@ -131,5 +131,8 @@ BOARD_HARDWARE_CLASS += \
 
 # Recovery
 TARGET_RECOVERY_DENSITY := hdpi
+
+# Device manifest
+DEVICE_MANIFEST_FILE := device/asus/flo/manifest.xml
 
 -include vendor/asus/flo/BoardConfigVendor.mk

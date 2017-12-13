@@ -47,7 +47,7 @@ on boot
     chmod 2770 /dev/socket/qmux_radio
     mkdir /dev/socket/qmux_audio 0770 media audio
     chmod 2770 /dev/socket/qmux_audio
-    mkdir /dev/socket/qmux_bluetooth 0770 bluetooth net_bt_stack
+    mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
     chmod 2770 /dev/socket/qmux_bluetooth
     mkdir /dev/socket/qmux_gps 0770 gps gps
     chmod 2770 /dev/socket/qmux_gps
@@ -119,6 +119,10 @@ on boot
     # CPUFreq limit
     chown system system /sys/kernel/cpufreq_limit/limited_max_freq
     chown system system /sys/kernel/cpufreq_limit/limited_min_freq
+
+    # Wifi firmware reload path
+    chown wifi wifi /sys/module/wlan/parameters/fwpath
+
 
 # msm specific files that need to be created on /data
 on post-fs-data
@@ -224,7 +228,7 @@ service rmt_storage /system/bin/rmt_storage
 service hciattach /system/bin/init.flo.bt.sh
     class late_start
     user bluetooth
-    group qcom_oncrpc bluetooth net_bt_admin system net_bt_stack
+    group qcom_oncrpc bluetooth system
     disabled
     oneshot
 
@@ -243,7 +247,7 @@ service bridgemgrd /system/bin/bridgemgrd
 service qmuxd /system/bin/qmuxd
     class main
     user radio
-    group radio audio bluetooth gps net_bt_stack
+    group radio audio bluetooth gps
     disabled
 
 service ks_checker /system/bin/kickstart_checker.sh
@@ -277,20 +281,7 @@ service sensors /system/bin/sensors.qcom
     user root
     group root
 
-service wpa_supplicant /system/bin/wpa_supplicant \
-    -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
-    -I/system/etc/wifi/wpa_supplicant_overlay.conf \
-    -e/data/misc/wifi/entropy.bin -g@android:wpa_wlan0
-    #   we will start as root and wpa_supplicant will switch to user wifi
-    #   after setting up the capabilities required for WEXT
-    #   user wifi
-    #   group wifi inet keystore
-    class main
-    socket wpa_wlan0 dgram 660 wifi wifi
-    disabled
-    oneshot
-
-service p2p_supplicant /system/bin/wpa_supplicant \
+service wpa_supplicant /system/vendor/bin/hw/wpa_supplicant \
     -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf \
     -I/system/etc/wifi/p2p_supplicant_overlay.conf -N \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
@@ -379,7 +370,7 @@ service wcnss_init /system/bin/init.flo.wifi.sh
 service bdAddrLoader /system/bin/bdAddrLoader -f /persist/bluetooth/.bdaddr -h -x
     class main
     user bluetooth
-    group system bluetooth net_bt_stack
+    group system bluetooth
     oneshot
 
 service qseecomd /system/bin/qseecomd
